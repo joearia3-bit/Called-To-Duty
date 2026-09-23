@@ -1,115 +1,939 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    background: #111;
-    color: white;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #050505;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  touch-action: none;
 }
 
-
-/* =========================================
+/* =========================
    GAME
-========================================= */
+========================= */
 
 #game {
-    position: relative;
-
-    width: 100%;
-    height: 100%;
-
-    overflow: hidden;
-
-    background: #111;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #111;
 }
 
-
-/* =========================================
+/* =========================
    HUD
-========================================= */
+========================= */
 
-.hud {
-    position: absolute;
+#hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 65px;
+  z-index: 20;
 
-    top: 0;
-    left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    width: 100%;
-    height: 65px;
+  padding: 8px 12px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 8px 12px;
-
-    background: rgba(0, 0, 0, 0.82);
-
-    z-index: 50;
+  background: rgba(0, 0, 0, 0.65);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.brand {
-    display: flex;
-    flex-direction: column;
+.hud-left {
+  text-align: left;
 }
 
-.brand strong {
-    font-size: 24px;
-    letter-spacing: 3px;
+.game-title {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 3px;
 }
 
-.brand span {
-    font-size: 7px;
-    letter-spacing: 1px;
+.mission {
+  font-size: 9px;
+  letter-spacing: 1px;
+  opacity: 0.7;
 }
 
-.mission-info {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+.hud-center {
+  text-align: center;
+  font-size: 8px;
+  letter-spacing: 1px;
 }
 
-.mission-info span {
-    font-size: 7px;
-    opacity: 0.6;
+.hud-center strong {
+  display: block;
+  font-size: 20px;
+  margin-top: 2px;
 }
 
-.mission-info strong {
-    font-size: 10px;
-    letter-spacing: 1px;
+.hud-right {
+  text-align: right;
+  font-size: 9px;
+  letter-spacing: 1px;
 }
 
-.score,
-.health {
-    font-size: 11px;
-    font-weight: bold;
+.hud-right strong {
+  display: block;
+  font-size: 20px;
+  margin-top: 2px;
 }
 
-.health {
-    min-width: 55px;
+/* =========================
+   PLAYER STATUS
+========================= */
+
+#playerStatus {
+  position: absolute;
+  top: 72px;
+  left: 10px;
+  z-index: 20;
+
+  display: flex;
+  gap: 10px;
+
+  font-size: 9px;
+  letter-spacing: 1px;
 }
 
+.health-box,
+.xp-box {
+  padding: 5px 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-/* =========================================
+.health-bar {
+  width: 85px;
+  height: 6px;
+  margin: 4px 0;
+  background: #333;
+  overflow: hidden;
+}
+
+#healthFill {
+  width: 100%;
+  height: 100%;
+  background: #36d15c;
+  transition: width 0.2s ease;
+}
+
+.health-box strong {
+  font-size: 13px;
+}
+
+.xp-box strong {
+  display: block;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* =========================
    BATTLEFIELD
-========================================= */
+========================= */
 
 #battlefield {
-    position: absolute;
+  position: absolute;
+  top: 0;
+  left: 0;
 
-    top: 65px;
-    left: 0;
+  width: 100%;
+  height: 100%;
 
-    width: 100%;
+  overflow: hidden;
+}
+
+/* SKY */
+
+#sky {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #1c3545 0%,
+      #52727c 45%,
+      #9b9b78 70%,
+      #77735b 100%
+    );
+}
+
+/* MOUNTAINS */
+
+#mountains {
+  position: absolute;
+
+  left: -10%;
+  bottom: 30%;
+
+  width: 120%;
+  height: 30%;
+
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0 12%,
+      #303d3b 12% 27%,
+      transparent 27% 35%,
+      #263431 35% 52%,
+      transparent 52% 62%,
+      #33413b 62% 78%,
+      transparent 78%
+    );
+
+  opacity: 0.8;
+}
+
+/* GROUND */
+
+#ground {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 48%;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #5d5b42,
+      #343528 70%,
+      #20221d
+    );
+
+  transform: perspective(500px) rotateX(8deg);
+  transform-origin: bottom;
+}
+
+/* TARGET AREA */
+
+#targetArea {
+  position: absolute;
+
+  left: 0;
+  top: 65px;
+
+  width: 100%;
+  height: calc(100% - 65px);
+
+  pointer-events: none;
+}
+
+/* =========================
+   ENEMY
+========================= */
+
+#enemy {
+  position: absolute;
+
+  left: 50%;
+  top: 45%;
+
+  width: 100px;
+  height: 180px;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 8;
+
+  transition:
+    left 0.25s ease,
+    top 0.25s ease,
+    transform 0.15s ease;
+}
+
+/* ENEMY HEALTH BAR */
+
+#enemyHealthBar {
+  position: absolute;
+
+  top: -15px;
+  left: 50%;
+
+  width: 90px;
+  height: 8px;
+
+  transform: translateX(-50%);
+
+  background: #222;
+
+  border: 1px solid #111;
+
+  z-index: 20;
+}
+
+#enemyHealthFill {
+  width: 100%;
+  height: 100%;
+
+  background: #e53935;
+
+  transition: width 0.15s ease;
+}
+
+/* ENEMY BODY */
+
+#enemyBody {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 100px;
+  height: 180px;
+
+  transform: translateX(-50%);
+}
+
+/* HEAD */
+
+#enemyHead {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 42px;
+  height: 42px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: #777;
+  border: 3px solid #222;
+}
+
+/* HELMET */
+
+#enemyHead::before {
+  content: "";
+
+  position: absolute;
+
+  top: -4px;
+  left: -3px;
+
+  width: 42px;
+  height: 18px;
+
+  border-radius: 20px 20px 5px 5px;
+
+  background: #222;
+}
+
+/* TORSO */
+
+#enemyTorso {
+  position: absolute;
+
+  top: 42px;
+  left: 50%;
+
+  width: 55px;
+  height: 70px;
+
+  transform: translateX(-50%);
+
+  background: #353a35;
+
+  border: 3px solid #191b19;
+
+  border-radius: 5px;
+}
+
+/* ARMS */
+
+#enemyLeftArm,
+#enemyRightArm {
+  position: absolute;
+
+  top: 47px;
+
+  width: 18px;
+  height: 65px;
+
+  background: #414741;
+
+  border: 2px solid #191b19;
+
+  border-radius: 8px;
+}
+
+#enemyLeftArm {
+  left: 8px;
+  transform: rotate(12deg);
+}
+
+#enemyRightArm {
+  right: 8px;
+  transform: rotate(-12deg);
+}
+
+/* LEGS */
+
+#enemyLeftLeg,
+#enemyRightLeg {
+  position: absolute;
+
+  top: 108px;
+
+  width: 22px;
+  height: 70px;
+
+  background: #292d29;
+
+  border: 2px solid #151615;
+
+  border-radius: 5px;
+}
+
+#enemyLeftLeg {
+  left: 27px;
+  transform: rotate(3deg);
+}
+
+#enemyRightLeg {
+  right: 27px;
+  transform: rotate(-3deg);
+}
+
+/* =========================
+   CROSSHAIR
+========================= */
+
+#crosshair {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 50px;
+  height: 50px;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 15;
+
+  pointer-events: none;
+}
+
+#crosshair span {
+  position: absolute;
+  background: white;
+}
+
+.cross-top {
+  left: 24px;
+  top: 0;
+  width: 2px;
+  height: 13px;
+}
+
+.cross-bottom {
+  left: 24px;
+  bottom: 0;
+  width: 2px;
+  height: 13px;
+}
+
+.cross-left {
+  left: 0;
+  top: 24px;
+  width: 13px;
+  height: 2px;
+}
+
+.cross-right {
+  right: 0;
+  top: 24px;
+  width: 13px;
+  height: 2px;
+}
+
+.cross-center {
+  left: 22px;
+  top: 22px;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+}
+
+/* =========================
+   WEAPON
+========================= */
+
+#weapon {
+  position: absolute;
+
+  right: 3%;
+  bottom: 2%;
+
+  width: 190px;
+  height: 115px;
+
+  z-index: 12;
+
+  pointer-events: none;
+}
+
+#weaponName {
+  position: absolute;
+
+  right: 5px;
+  bottom: 95px;
+
+  font-size: 10px;
+  font-weight: bold;
+
+  letter-spacing: 1px;
+
+  opacity: 0.8;
+}
+
+/* ORIGINAL CTD WEAPON */
+
+#weaponBody {
+  position: absolute;
+
+  right: 5px;
+  bottom: 20px;
+
+  width: 145px;
+  height: 32px;
+
+  background: #181818;
+
+  border-radius: 5px 12px 4px 4px;
+
+  transform: rotate(-8deg);
+
+  box-shadow:
+    -30px 20px 0 -5px #242424,
+    -70px 35px 0 -10px #151515;
+}
+
+/* MUZZLE */
+
+#weaponBody::before {
+  content: "";
+
+  position: absolute;
+
+  right: -25px;
+  top: 9px;
+
+  width: 30px;
+  height: 12px;
+
+  background: #0b0b0b;
+}
+
+/* MAGAZINE */
+
+#weaponBody::after {
+  content: "";
+
+  position: absolute;
+
+  left: 55px;
+  top: 25px;
+
+  width: 25px;
+  height: 45px;
+
+  background: #111;
+
+  transform: rotate(12deg);
+
+  border-radius: 3px;
+}
+
+/* =========================
+   JOYSTICK
+========================= */
+
+#joystick {
+  position: absolute;
+
+  left: 20px;
+  bottom: 25px;
+
+  width: 105px;
+  height: 105px;
+
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.28);
+
+  border: 2px solid rgba(255, 255, 255, 0.25);
+
+  z-index: 30;
+}
+
+#joystickKnob {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 50px;
+  height: 50px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.3);
+
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* =========================
+   AIM AREA
+========================= */
+
+#aimArea {
+  position: absolute;
+
+  right: 0;
+  top: 20%;
+
+  width: 55%;
+  height: 55%;
+
+  z-index: 25;
+
+  background: transparent;
+}
+
+/* =========================
+   CONTROLS
+========================= */
+
+#controls {
+  position: absolute;
+
+  right: 18px;
+  bottom: 25px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  z-index: 35;
+}
+
+#controls button {
+  width: 78px;
+  height: 58px;
+
+  border: 2px solid rgba(255, 255, 255, 0.5);
+
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: bold;
+
+  letter-spacing: 1px;
+}
+
+#fireButton {
+  background: rgba(150, 20, 20, 0.7) !important;
+}
+
+#controls button:active {
+  transform: scale(0.92);
+}
+
+/* =========================
+   AMMO
+========================= */
+
+#ammoBox {
+  position: absolute;
+
+  right: 18px;
+  bottom: 155px;
+
+  z-index: 30;
+
+  padding: 7px 10px;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+}
+
+#ammo {
+  font-size: 22px;
+  margin-left: 5px;
+}
+
+/* =========================
+   STATUS MESSAGE
+========================= */
+
+#statusMessage {
+  position: absolute;
+
+  left: 50%;
+  top: 82%;
+
+  transform: translateX(-50%);
+
+  z-index: 40;
+
+  padding: 7px 14px;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  border-radius: 5px;
+
+  font-size: 11px;
+  font-weight: bold;
+
+  letter-spacing: 1px;
+
+  pointer-events: none;
+}
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.82);
+
+  padding: 20px;
+}
+
+.screen-box {
+  width: min(90%, 400px);
+
+  padding: 30px 20px;
+
+  text-align: center;
+
+  background: rgba(15, 15, 15, 0.95);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  border-radius: 12px;
+}
+
+.screen-box h1 {
+  font-size: 30px;
+
+  letter-spacing: 3px;
+
+  margin-bottom: 10px;
+}
+
+.screen-box h2 {
+  font-size: 14px;
+
+  letter-spacing: 2px;
+
+  opacity: 0.75;
+
+  margin-bottom: 25px;
+}
+
+.screen-box p {
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  opacity: 0.8;
+
+  margin-bottom: 10px;
+}
+
+.screen-box button {
+  margin-top: 25px;
+
+  width: 100%;
+
+  min-height: 55px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #d62828;
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  letter-spacing: 1px;
+}
+
+.screen-box button:active {
+  transform: scale(0.97);
+}
+
+/* =========================
+   FINAL STATS
+========================= */
+
+.finalStats {
+  display: flex;
+
+  justify-content: space-around;
+
+  margin-top: 25px;
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+}
+
+.finalStats div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.finalStats strong {
+  font-size: 22px;
+}
+
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================
+   HIT EFFECT
+========================= */
+
+.hit-effect {
+  animation: hitFlash 0.15s ease;
+}
+
+@keyframes hitFlash {
+  0% {
+    filter: brightness(2);
+  }
+
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* =========================
+   ENEMY DEATH
+========================= */
+
+.enemy-dead {
+  animation: enemyDeath 0.45s ease forwards;
+}
+
+@keyframes enemyDeath {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7) rotate(12deg);
+  }
+}
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 380px) {
+
+  .game-title {
+    font-size: 18px;
+  }
+
+  #hud {
+    height: 58px;
+  }
+
+  #playerStatus {
+    top: 63px;
+  }
+
+  #joystick {
+    width: 90px;
+    height: 90px;
+  }
+
+  #joystickKnob {
+    width: 42px;
+    height: 42px;
+  }
+
+  #controls {
+    right: 10px;
+  }
+
+  #controls button {
+    width: 70px;
+    height: 52px;
+  }
+
+  #ammoBox {
+    right: 10px;
+    bottom: 140px;
+  }
+
+  #weapon {
+    right: 0;
+    transform: scale(0.85);
+    transform-origin: bottom right;
+  }
+}    width: 100%;
     height: calc(100% - 65px);
 
     overflow: hidden;
