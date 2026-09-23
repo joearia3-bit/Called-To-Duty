@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 html,
@@ -15,26 +16,33 @@ body {
     color: white;
 }
 
-/* =========================
+
+/* =========================================
    GAME
-========================= */
+========================================= */
 
 #game {
+    position: relative;
+
     width: 100%;
     height: 100%;
-    position: relative;
+
     overflow: hidden;
+
     background: #111;
 }
 
-/* =========================
+
+/* =========================================
    HUD
-========================= */
+========================================= */
 
 .hud {
     position: absolute;
+
     top: 0;
     left: 0;
+
     width: 100%;
     height: 65px;
 
@@ -44,9 +52,9 @@ body {
 
     padding: 8px 12px;
 
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.82);
 
-    z-index: 20;
+    z-index: 50;
 }
 
 .brand {
@@ -56,23 +64,44 @@ body {
 
 .brand strong {
     font-size: 24px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
 .brand span {
-    font-size: 8px;
+    font-size: 7px;
+    letter-spacing: 1px;
+}
+
+.mission-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.mission-info span {
+    font-size: 7px;
+    opacity: 0.6;
+}
+
+.mission-info strong {
+    font-size: 10px;
     letter-spacing: 1px;
 }
 
 .score,
 .health {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: bold;
 }
 
-/* =========================
+.health {
+    min-width: 55px;
+}
+
+
+/* =========================================
    BATTLEFIELD
-========================= */
+========================================= */
 
 #battlefield {
     position: absolute;
@@ -85,31 +114,736 @@ body {
 
     overflow: hidden;
 
+    background: #596b62;
+
+    touch-action: none;
+}
+
+
+/* =========================================
+   SKY
+========================================= */
+
+#sky {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 52%;
+
     background:
         linear-gradient(
             to bottom,
-            #5d7480 0%,
-            #778b72 45%,
-            #4c503e 46%,
-            #292a22 100%
+            #405968 0%,
+            #70878b 65%,
+            #9b9b87 100%
         );
 }
 
-/* Horizon */
 
-#battlefield::before {
+/* =========================================
+   MOUNTAINS
+========================================= */
+
+#mountains {
+    position: absolute;
+
+    left: -10%;
+    top: 27%;
+
+    width: 120%;
+    height: 28%;
+
+    background:
+        polygon(
+            0 100%,
+            12% 55%,
+            22% 78%,
+            36% 30%,
+            50% 72%,
+            63% 42%,
+            78% 70%,
+            90% 35%,
+            100% 65%,
+            100% 100%
+        );
+
+    background-color: #4c5b50;
+
+    clip-path: polygon(
+        0 100%,
+        12% 55%,
+        22% 78%,
+        36% 30%,
+        50% 72%,
+        63% 42%,
+        78% 70%,
+        90% 35%,
+        100% 65%,
+        100% 100%
+    );
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   GROUND
+========================================= */
+
+#ground {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 58%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #4d5140 0%,
+            #33362c 50%,
+            #20211c 100%
+        );
+
+    clip-path: polygon(
+        0 18%,
+        100% 18%,
+        100% 100%,
+        0 100%
+    );
+
+    z-index: 3;
+}
+
+
+/* Ground lines */
+
+#ground::after {
     content: "";
 
     position: absolute;
 
-    top: 43%;
-    left: 0;
+    inset: 0;
 
-    width: 100%;
-    height: 3px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 35px,
+            rgba(255, 255, 255, 0.035) 36px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 30px,
+            rgba(255, 255, 255, 0.025) 31px
+        );
 
-    background: rgba(0, 0, 0, 0.4);
+    transform: perspective(300px) rotateX(45deg);
+
+    transform-origin: bottom;
+
+    opacity: 0.7;
 }
+
+
+/* =========================================
+   TARGET AREA
+========================================= */
+
+#targetArea {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 10;
+
+    transition:
+        transform 0.15s ease-out;
+}
+
+
+/* =========================================
+   ENEMY
+========================================= */
+
+#enemy {
+    position: absolute;
+
+    left: 50%;
+    top: 34%;
+
+    width: 68px;
+    height: 135px;
+
+    transform: translateX(-50%);
+
+    text-align: center;
+
+    transition:
+        left 0.25s ease,
+        top 0.25s ease,
+        transform 0.1s ease;
+
+    z-index: 15;
+}
+
+.enemy-head {
+    width: 35px;
+    height: 35px;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    background: #ad8066;
+
+    border: 3px solid #151515;
+
+    box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.6);
+}
+
+.enemy-body {
+    width: 68px;
+    height: 85px;
+
+    margin-top: 4px;
+
+    border-radius: 12px 12px 5px 5px;
+
+    border: 3px solid #141414;
+
+    background: #29382d;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 7px 15px rgba(0, 0, 0, 0.7);
+}
+
+.enemy-body span {
+    font-size: 7px;
+
+    opacity: 0.55;
+
+    transform: rotate(-90deg);
+}
+
+
+/* =========================================
+   CROSSHAIR
+========================================= */
+
+#crosshair {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 48px;
+    height: 48px;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 40;
+
+    pointer-events: none;
+
+    transition:
+        transform 0.08s ease;
+}
+
+#crosshair::before,
+#crosshair::after {
+    content: "";
+
+    position: absolute;
+
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#crosshair::before {
+    width: 2px;
+    height: 48px;
+
+    left: 23px;
+    top: 0;
+}
+
+#crosshair::after {
+    width: 48px;
+    height: 2px;
+
+    left: 0;
+    top: 23px;
+}
+
+#crosshair span {
+    position: absolute;
+
+    left: 19px;
+    top: 19px;
+
+    width: 10px;
+    height: 10px;
+
+    border: 2px solid white;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================
+   WEAPON
+========================================= */
+
+#weapon {
+    position: absolute;
+
+    left: 50%;
+    bottom: 25px;
+
+    transform:
+        translateX(-50%);
+
+    font-size: 90px;
+
+    z-index: 35;
+
+    pointer-events: none;
+
+    filter:
+        drop-shadow(
+            0 8px 7px rgba(0, 0, 0, 0.75)
+        );
+
+    transition:
+        transform 0.08s ease;
+}
+
+
+/* =========================================
+   JOYSTICK
+========================================= */
+
+#joystick {
+    position: absolute;
+
+    left: 20px;
+    bottom: 22px;
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    border:
+        2px solid rgba(255, 255, 255, 0.25);
+
+    z-index: 60;
+
+    touch-action: none;
+}
+
+#joystick::after {
+    content: "MOVE";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size: 8px;
+
+    opacity: 0.35;
+
+    pointer-events: none;
+}
+
+#joystick-knob {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 58px;
+    height: 58px;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.32);
+
+    border:
+        2px solid rgba(255, 255, 255, 0.55);
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   AIM AREA
+========================================= */
+
+#aimArea {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 52%;
+    height: 70%;
+
+    z-index: 25;
+
+    touch-action: none;
+
+    pointer-events: auto;
+}
+
+.aimHint {
+    position: absolute;
+
+    right: 15px;
+    top: 15px;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    opacity: 0.25;
+}
+
+
+/* =========================================
+   FIRE BUTTON
+========================================= */
+
+#fireButton {
+    position: absolute;
+
+    right: 22px;
+    bottom: 28px;
+
+    width: 88px;
+    height: 88px;
+
+    border-radius: 50%;
+
+    border:
+        3px solid rgba(255, 255, 255, 0.75);
+
+    background:
+        rgba(130, 0, 0, 0.75);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    z-index: 70;
+
+    touch-action: manipulation;
+}
+
+#fireButton:active {
+    transform: scale(0.9);
+
+    background:
+        rgba(190, 0, 0, 0.95);
+}
+
+
+/* =========================================
+   RELOAD BUTTON
+========================================= */
+
+#reloadButton {
+    position: absolute;
+
+    right: 30px;
+    bottom: 130px;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    border:
+        2px solid rgba(255, 255, 255, 0.5);
+
+    background:
+        rgba(0, 0, 0, 0.65);
+
+    color: white;
+
+    font-size: 23px;
+
+    z-index: 70;
+}
+
+
+/* =========================================
+   AMMO
+========================================= */
+
+#ammoDisplay {
+    position: absolute;
+
+    right: 95px;
+    bottom: 25px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    z-index: 60;
+
+    text-shadow:
+        0 2px 4px black;
+}
+
+
+/* =========================================
+   STATUS MESSAGE
+========================================= */
+
+#statusMessage {
+    position: absolute;
+
+    left: 50%;
+    top: 38%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 100;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 3px 6px black;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   START SCREEN
+========================================= */
+
+#startScreen {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 200;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.72),
+            rgba(0, 0, 0, 0.92)
+        );
+}
+
+.start-box {
+    width: 90%;
+    max-width: 400px;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.2);
+
+    border-radius: 12px;
+
+    background:
+        rgba(0, 0, 0, 0.65);
+}
+
+.game-logo span {
+    display: block;
+
+    font-size: 55px;
+
+    font-weight: bold;
+
+    letter-spacing: 8px;
+}
+
+.game-logo h1 {
+    font-size: 22px;
+
+    letter-spacing: 2px;
+}
+
+.operation {
+    margin-top: 15px;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+}
+
+.briefing {
+    margin: 20px 0;
+
+    font-size: 10px;
+
+    line-height: 1.6;
+
+    opacity: 0.65;
+}
+
+
+/* =========================================
+   START / RESTART BUTTON
+========================================= */
+
+#startButton,
+#restartButton {
+    padding: 15px 24px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background: white;
+
+    color: black;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+#startButton:active,
+#restartButton:active {
+    transform: scale(0.95);
+}
+
+
+/* =========================================
+   GAME OVER
+========================================= */
+
+#gameOver {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 300;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(0, 0, 0, 0.88);
+}
+
+.gameover-box {
+    text-align: center;
+}
+
+.gameover-box h1 {
+    font-size: 28px;
+
+    letter-spacing: 2px;
+}
+
+.gameover-box p {
+    margin-top: 20px;
+
+    font-size: 11px;
+
+    opacity: 0.6;
+}
+
+.gameover-box strong {
+    display: block;
+
+    margin: 8px 0 25px;
+
+    font-size: 35px;
+}
+
+
+/* =========================================
+   HIDDEN
+========================================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .hud {
+        height: 58px;
+    }
+
+    #battlefield {
+        top: 58px;
+
+        height: calc(100% - 58px);
+    }
+
+    #joystick {
+        width: 100px;
+        height: 100px;
+    }
+
+    #joystick-knob {
+        width: 48px;
+        height: 48px;
+    }
+
+    #fireButton {
+        width: 75px;
+        height: 75px;
+    }
+
+    #weapon {
+        font-size: 70px;
+    }
+
+    }}
 
 /* Ground */
 
