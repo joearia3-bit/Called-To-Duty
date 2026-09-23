@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Call to DUTY — CTD</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- GAME SCREEN -->
+    <main id="game">
+
+        <!-- TOP INFORMATION -->
+        <header class="hud">
+
+            <div class="brand">
+                <strong>CTD</strong>
+                <span>CALL TO DUTY</span>
+            </div>
+
+            <div class="score">
+                SCORE: <span id="score">0</span>
+            </div>
+
+            <div class="health">
+                HP: <span id="health">100</span>
+            </div>
+
+        </header>
+
+
+        <!-- BATTLEFIELD -->
+        <section id="battlefield">
+
+            <div class="mission">
+                <span>MISSION 01</span>
+                <strong>OPERATION ONE</strong>
+            </div>
+
+
+            <!-- ENEMY -->
+            <div id="enemy">
+
+                <div class="enemy-head"></div>
+
+                <div class="enemy-body">
+                    <span>ENEMY</span>
+                </div>
+
+            </div>
+
+
+            <!-- CROSSHAIR -->
+            <div id="crosshair">
+                <span></span>
+            </div>
+
+
+            <!-- PLAYER WEAPON -->
+            <div id="weapon">
+                🔫
+            </div>
+
+
+            <!-- MOBILE CONTROLS -->
+            <div id="joystick">
+                <div id="joystick-knob"></div>
+            </div>
+
+            <button id="fireButton">
+                FIRE
+            </button>
+
+            <button id="reloadButton">
+                ↻
+            </button>
+
+        </section>
+
+
+        <!-- START SCREEN -->
+        <div id="startScreen">
+
+            <div class="start-box">
+
+                <h1>CALL TO DUTY</h1>
+
+                <h2>CTD</h2>
+
+                <p>
+                    OPERATION ONE
+                </p>
+
+                <button id="startButton">
+                    START MISSION
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- GAME OVER -->
+        <div id="gameOver" class="hidden">
+
+            <div class="gameover-box">
+
+                <h1>MISSION FAILED</h1>
+
+                <p>
+                    Final Score:
+                    <strong id="finalScore">0</strong>
+                </p>
+
+                <button id="restartButton">
+                    RESTART
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+  </html> 
