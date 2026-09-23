@@ -1,115 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Call to DUTY — CTD</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
+
+    <title>CTD — Operation One</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- GAME SCREEN -->
-    <main id="game">
-
-        <!-- TOP INFORMATION -->
-        <header class="hud">
-
-            <div class="brand">
-                <strong>CTD</strong>
-                <span>CALL TO DUTY</span>
-            </div>
-
-            <div class="score">
-                SCORE: <span id="score">0</span>
-            </div>
-
-            <div class="health">
-                HP: <span id="health">100</span>
-            </div>
-
-        </header>
+<main id="game">
 
 
-        <!-- BATTLEFIELD -->
-        <section id="battlefield">
+    <!-- =========================
+         HUD
+    ========================== -->
 
-            <div class="mission">
-                <span>MISSION 01</span>
-                <strong>OPERATION ONE</strong>
-            </div>
+    <header class="hud">
+
+        <div class="brand">
+
+            <strong>CTD</strong>
+
+            <span>CALL TO DUTY</span>
+
+        </div>
+
+
+        <div class="mission-info">
+
+            <span>MISSION</span>
+
+            <strong>OPERATION ONE</strong>
+
+        </div>
+
+
+        <div class="score">
+
+            SCORE:
+            <span id="score">0</span>
+
+        </div>
+
+
+        <div class="health">
+
+            HP:
+            <span id="health">100</span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         BATTLEFIELD
+    ========================== -->
+
+    <section id="battlefield">
+
+
+        <!-- SKY -->
+
+        <div id="sky"></div>
+
+
+        <!-- DISTANT TERRAIN -->
+
+        <div id="mountains"></div>
+
+
+        <!-- GROUND -->
+
+        <div id="ground"></div>
+
+
+        <!-- TARGET AREA -->
+
+        <div id="targetArea">
 
 
             <!-- ENEMY -->
+
             <div id="enemy">
 
                 <div class="enemy-head"></div>
 
                 <div class="enemy-body">
+
                     <span>ENEMY</span>
+
                 </div>
 
             </div>
 
 
-            <!-- CROSSHAIR -->
-            <div id="crosshair">
-                <span></span>
-            </div>
+        </div>
 
 
-            <!-- PLAYER WEAPON -->
-            <div id="weapon">
-                🔫
-            </div>
 
+        <!-- CROSSHAIR -->
 
-            <!-- MOBILE CONTROLS -->
-            <div id="joystick">
-                <div id="joystick-knob"></div>
-            </div>
+        <div id="crosshair">
 
-            <button id="fireButton">
-                FIRE
-            </button>
-
-            <button id="reloadButton">
-                ↻
-            </button>
-
-        </section>
-
-
-        <!-- START SCREEN -->
-        <div id="startScreen">
-
-            <div class="start-box">
-
-                <h1>CALL TO DUTY</h1>
-
-                <h2>CTD</h2>
-
-                <p>
-                    OPERATION ONE
-                </p>
-
-                <button id="startButton">
-                    START MISSION
-                </button>
-
-            </div>
+            <span></span>
 
         </div>
 
 
-        <!-- GAME OVER -->
-        <div id="gameOver" class="hidden">
 
-            <div class="gameover-box">
+        <!-- WEAPON -->
 
+        <div id="weapon">
+
+            🔫
+
+        </div>
+
+
+
+        <!-- =========================
+             LEFT MOVEMENT CONTROL
+        ========================== -->
+
+        <div id="joystick">
+
+            <div id="joystick-knob"></div>
+
+        </div>
+
+
+
+        <!-- =========================
+             RIGHT AIM AREA
+        ========================== -->
+
+        <div id="aimArea">
+
+            <span class="aimHint">
+                AIM
+            </span>
+
+        </div>
+
+
+
+        <!-- =========================
+             FIRE BUTTON
+        ========================== -->
+
+        <button
+            id="fireButton"
+            type="button">
+
+            FIRE
+
+        </button>
+
+
+
+        <!-- =========================
+             RELOAD BUTTON
+        ========================== -->
+
+        <button
+            id="reloadButton"
+            type="button">
+
+            ↻
+
+        </button>
+
+
+
+        <!-- AMMO -->
+
+        <div id="ammoDisplay">
+
+            AMMO:
+            <span id="ammo">12</span>
+            /
+            <span id="maxAmmo">12</span>
+
+        </div>
+
+
+
+        <!-- STATUS MESSAGE -->
+
+        <div id="statusMessage"></div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         START SCREEN
+    ========================== -->
+
+    <div id="startScreen">
+
+        <div class="start-box">
+
+            <div class="game-logo">
+
+                <span>CTD</span>
+
+                <h1>
+                    CALL TO DUTY
+                </h1>
+
+            </div>
+
+
+            <p class="operation">
+
+                OPERATION ONE
+
+            </p>
+
+
+            <p class="briefing">
+
+                YOUR MISSION:
+                ELIMINATE ENEMY TARGETS.
+
+            </p>
+
+
+            <button
+                id="startButton"
+                type="button">
+
+                START MISSION
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         GAME OVER
+    ========================== -->
+
+    <div
+        id="gameOver"
+        class="hidden">
+
+        <div class="gameover-box">
+
+            <h1>
+                MISSION FAILED
+            </h1>
+
+
+            <p>
+
+                FINAL SCORE
+
+            </p>
+
+
+            <strong id="finalScore">
+                0
+            </strong>
+
+
+            <button
+                id="restartButton"
+                type="button">
+
+                RESTART MISSION
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+
+            </html>
                 <h1>MISSION FAILED</h1>
 
                 <p>
