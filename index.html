@@ -1,115 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <meta charset="UTF-8">
+  <title>Call to DUTY — Operation One</title>
 
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1.0,
-                   maximum-scale=1.0,
-                   user-scalable=no">
-
-    <title>CTD — Operation One</title>
-
-    <link rel="stylesheet" href="style.css">
-
+  <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-<main id="game">
+  <!-- GAME -->
+  <main id="game">
 
+    <!-- HUD -->
+    <header id="hud">
 
-    <!-- =========================
-         HUD
-    ========================== -->
+      <div class="hud-left">
+        <div class="game-title">CTD</div>
+        <div class="mission">OPERATION ONE</div>
+      </div>
 
-    <header class="hud">
+      <div class="hud-center">
+        <div>MISSION SCORE</div>
+        <strong id="score">0</strong>
+      </div>
 
-        <div class="brand">
-
-            <strong>CTD</strong>
-
-            <span>CALL TO DUTY</span>
-
-        </div>
-
-
-        <div class="mission-info">
-
-            <span>MISSION</span>
-
-            <strong>OPERATION ONE</strong>
-
-        </div>
-
-
-        <div class="score">
-
-            SCORE:
-            <span id="score">0</span>
-
-        </div>
-
-
-        <div class="health">
-
-            HP:
-            <span id="health">100</span>
-
-        </div>
+      <div class="hud-right">
+        <div>KILLS</div>
+        <strong id="kills">0</strong>
+      </div>
 
     </header>
 
 
+    <!-- PLAYER STATUS -->
+    <section id="playerStatus">
 
-    <!-- =========================
-         BATTLEFIELD
-    ========================== -->
+      <div class="health-box">
+        <span>HEALTH</span>
 
+        <div class="health-bar">
+          <div id="healthFill"></div>
+        </div>
+
+        <strong id="health">100</strong>
+      </div>
+
+      <div class="xp-box">
+        <span>XP</span>
+        <strong id="xp">0</strong>
+      </div>
+
+    </section>
+
+
+    <!-- BATTLEFIELD -->
     <section id="battlefield">
 
+      <!-- SKY -->
+      <div id="sky"></div>
 
-        <!-- SKY -->
+      <!-- DISTANT MOUNTAINS -->
+      <div id="mountains"></div>
 
-        <div id="sky"></div>
+      <!-- GROUND -->
+      <div id="ground"></div>
 
+      <!-- TARGET AREA -->
+      <div id="targetArea">
 
-        <!-- DISTANT TERRAIN -->
+        <!-- ENEMY -->
+        <div id="enemy">
 
-        <div id="mountains"></div>
+          <div id="enemyHealthBar">
+            <div id="enemyHealthFill"></div>
+          </div>
 
+          <div id="enemyBody">
 
-        <!-- GROUND -->
+            <div id="enemyHead"></div>
 
-        <div id="ground"></div>
+            <div id="enemyTorso"></div>
 
+            <div id="enemyLeftArm"></div>
+            <div id="enemyRightArm"></div>
 
-        <!-- TARGET AREA -->
+            <div id="enemyLeftLeg"></div>
+            <div id="enemyRightLeg"></div>
 
-        <div id="targetArea">
-
-
-            <!-- ENEMY -->
-
-            <div id="enemy">
-
-                <div class="enemy-head"></div>
-
-                <div class="enemy-body">
-
-                    <span>ENEMY</span>
-
-                </div>
-
-            </div>
-
+          </div>
 
         </div>
 
+      </div>
+
+
+      <!-- CROSSHAIR -->
+      <div id="crosshair">
+        <span class="cross-top"></span>
+        <span class="cross-bottom"></span>
+        <span class="cross-left"></span>
+        <span class="cross-right"></span>
+        <span class="cross-center"></span>
+      </div>
+
+
+      <!-- WEAPON -->
+      <div id="weapon">
+
+        <div id="weaponName">
+          CTD ASSAULT RIFLE
+        </div>
+
+        <div id="weaponBody"></div>
+
+      </div>
+
+
+      <!-- LEFT JOYSTICK -->
+      <div id="joystick">
+        <div id="joystickKnob"></div>
+      </div>
+
+
+      <!-- RIGHT AIM AREA -->
+      <div id="aimArea"></div>
+
+
+      <!-- CONTROLS -->
+      <div id="controls">
+
+        <button id="fireButton">
+          FIRE
+        </button>
+
+        <button id="reloadButton">
+          RELOAD
+        </button>
+
+      </div>
+
+
+      <!-- AMMO -->
+      <div id="ammoBox">
+
+        <span>AMMO</span>
+
+        <strong id="ammo">30</strong>
+        <span>/ 90</span>
+
+      </div>
+
+
+      <!-- COMBAT MESSAGE -->
+      <div id="statusMessage">
+        READY
+      </div>
+
+    </section>
+
+
+    <!-- START SCREEN -->
+    <section id="startScreen" class="screen">
+
+      <div class="screen-box">
+
+        <h1>CALL TO DUTY</h1>
+
+        <h2>OPERATION ONE</h2>
+
+        <p>
+          Enter the battlefield.
+        </p>
+
+        <p>
+          Eliminate the enemy and complete your mission.
+        </p>
+
+        <button id="startButton">
+          START MISSION
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- GAME OVER -->
+    <section id="gameOverScreen" class="screen hidden">
+
+      <div class="screen-box">
+
+        <h1>MISSION FAILED</h1>
+
+        <p>
+          Your soldier has been eliminated.
+        </p>
+
+        <div class="finalStats">
+
+          <div>
+            SCORE
+            <strong id="finalScore">0</strong>
+          </div>
+
+          <div>
+            KILLS
+            <strong id="finalKills">0</strong>
+          </div>
+
+          <div>
+            XP
+            <strong id="finalXP">0</strong>
+          </div>
+
+        </div>
+
+        <button id="restartButton">
+          RESTART MISSION
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+      </html>
 
 
         <!-- CROSSHAIR -->
